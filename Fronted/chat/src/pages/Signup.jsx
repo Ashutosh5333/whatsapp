@@ -57,7 +57,7 @@ export const Signup = () => {
               textAlign={"center"}
               fontWeight={"600"}
               mb="5"
-              color="green"
+              color="#00a884"
               fontSize={"1.5rem"}
             >
               SIGNUP
@@ -146,7 +146,7 @@ export const Signup = () => {
                 width="100%"
                 size="lg"
                 onClick={handleSubmit}
-                bg="green"
+                bg="#00a884"
                 color="#fff"
                 borderRadius={"20"}
                 isLoading={loading}
@@ -160,7 +160,7 @@ export const Signup = () => {
                 {" "}
                 Already have an account ?
                 <Link to="/login">
-                  <span style={{ color: "green" }}> SIGN IN </span>
+                  <span style={{ color: "#00a884" }}> SIGN IN </span>
                 </Link>
               </Text>
             </Box>

@@ -47,7 +47,7 @@ export default function Login() {
              textAlign={"center"}
              fontWeight={"600"}
              mb="5"
-             color="green"
+             color="#00a884"
              fontSize={"1.5rem"}
            >
            LOGIN
@@ -112,7 +112,7 @@ export default function Login() {
                width="100%"
                size="lg"
                onClick={handleSubmit}
-               bg="green"
+               bg="#00a884"
                color="#fff"
                borderRadius={"20"}
             
@@ -126,7 +126,7 @@ export default function Login() {
              m="auto"
              mt="5"
              textAlign={"center"}
-             style={{ fontSize: "1em", color: "green", fontWeight: "600" }}
+             style={{ fontSize: "1em", color: "#00a884", fontWeight: "600" }}
            >
              {" "}
              Forgot password ?{" "}
@@ -139,7 +139,7 @@ export default function Login() {
            <Text textAlign={"center"} fontWeight={"600"}> Don't have an account ? 
 
               <Link to="/sign">
-           <span style={{color:"green"}} > SINGUP HERE</span> 
+           <span style={{color:"#00a884"}} > SINGUP HERE</span> 
               </Link>
            
             </Text>

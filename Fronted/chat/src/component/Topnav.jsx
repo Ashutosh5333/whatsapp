@@ -7,7 +7,7 @@ export const Topnav = () => {
 
   return (
     <>
-    <Box border="2px solid green" w="100%" h="30vh" bg="darkgreen" >
+    <Box  w="100%" h="30vh" bg="#00a884" >
        
        <Flex justifyContent={"space-between"} w="10%" h="10vh" ml="250px" gap="5" >
             <Text mt="5" fontSize={"2rem"}><FaWhatsappSquare/> </Text>
