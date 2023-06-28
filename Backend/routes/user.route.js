@@ -70,6 +70,31 @@ const UserRouter = express.Router();
        })
 
   
+         
+    UserRouter.get("/user/:id",async (req,res) =>{
+         const id = req.params.id;
+
+         try{
+          const Singleuser = await Usermodel.findOne({_id:id})  
+             res.send(Singleuser)
+         }
+         catch(err){
+           console.log(err)
+         }
+    })
+
+          
+    UserRouter.get("/alluser",async (req,res) =>{
+      try{
+       const Alluser = await Usermodel.find()  
+          res.send(Alluser)
+      }
+      catch(err){
+        console.log(err)
+      }
+
+  })
+
 
 
 
