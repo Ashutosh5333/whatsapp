@@ -1,25 +1,56 @@
- const express = require("express")
- const app = express()
- const http = require("http")
- const server = http.createServer(app)
-const {Server} = require("socket.io")
+const express = require("express");
+const app = express();
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const cors = require("cors");
+const { UserRouter } = require("./routes/user.route");
+const { connection } = require("./config/db");
+
+app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("Hello welcome");
+});
 
 
- app.get("/",(req,res) =>{
-    res.send("Hello welcome")
- })
 
- const io= new Server(server)
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
- // socket connection
-  
- io.on("connection", (socket) =>{
-    console.log("A User is connected")
+app.use(UserRouter)
 
-    
- })
+const io = new Server(server);
 
+// socket connection
 
- server.listen(8000, () =>{
-    console.log("listening on Port 8000")
- })
+let count = 0;
+
+io.on("connection", (socket) => {
+  console.log("A User is connected");
+  count++;
+
+  io.emit("newuser", count);
+
+  socket.on("message", (msg) => {
+    socket.broadcast.emit("usermsg", msg);
+  });
+
+  socket.on("disconnect", function () {
+    count--;
+    console.log("User Disconnected", count);
+    io.emit("newuser", count);
+  });
+});
+
+server.listen(8000, async () => {
+   try{
+     await connection
+      console.log("connected to database")
+   }catch(err){
+     console.log(err)
+   }
+  console.log("listening on Port 8000");
+});
