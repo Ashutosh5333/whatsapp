@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { Topnav } from "../component/Topnav";
+import { AuthContext } from "../context/AuthContext";
 
 export const Signup = () => {
   const [isEmail, setisEmail] = useState(false);
@@ -22,6 +23,8 @@ export const Signup = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
+   const {user} = useContext(AuthContext) 
+   console.log("user",user)
 
   
   const [post, SetPost] = useState({
