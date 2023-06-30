@@ -23,8 +23,8 @@ export const Signup = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
-   const {user} = useContext(AuthContext) 
-   console.log("user",user)
+   const {user, updatedregistered} = useContext(AuthContext) 
+ 
 
   
   const [post, SetPost] = useState({
@@ -40,7 +40,7 @@ export const Signup = () => {
 
   
   const  handleSubmit = () => {
-
+    updatedregistered(post)
   }
 
 
