@@ -44,7 +44,7 @@ const getsignFail = () => {
 export const Loginpost = (payload) => (dispatch) => {
   dispatch(getLoginreq());
   return axios
-    .post(`https://glorious-tan-underclothes.cyclic.app/login`, payload)
+    .post(`http://localhost:8000/login`, payload)
     .then((r) => {
       return dispatch(getLoginsuccess(r.data));
     })
@@ -55,7 +55,7 @@ export const Loginpost = (payload) => (dispatch) => {
 
 export const Signuppost =(payload) => (dispatch) => {
   dispatch(getsignReq);
-  return axios.post(`https://glorious-tan-underclothes.cyclic.app/signup`,payload)
+  return axios.post(`http://localhost:8000/signup`,payload)
     .then((r) => {
       return dispatch(getsignSucess(r));
     })

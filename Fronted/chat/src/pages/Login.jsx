@@ -6,7 +6,8 @@ import {
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Topnav } from '../component/Topnav'
-
+import  {useDispatch} from "react-redux"
+import { Loginpost } from "../Redux/AuthReducer/Action";
 
 export default function Login() {
   const [isEmail, setisEmail] = useState(false);
@@ -14,7 +15,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-
+  const dispatch = useDispatch()
   
 
   const [post, SetPost] = useState({
@@ -26,11 +27,63 @@ export default function Login() {
     const { name, value } = e.target;
     SetPost({ ...post, [name]: value });
   };
+// console.log(post)
 
   const handleSubmit = () =>{
+    if (post.email !== ""  && post.password !== "") {
+      setLoading(true)
+
+      dispatch(Loginpost(post))
+      .then((res) =>{ 
+        //  console.log( "res", res)
+         if(res.type === "LOGINUSERSUCESS" ){
+         if (res.payload.msg !== "login Sucessfully") {
+          toast({
+            position: "top",
+            colorScheme: "red",
+            status: "error",
+            title: res.payload.msg,
+          });
+          setLoading(false)
+        }else{
+          toast({
+            position: "top",
+            colorScheme: "green",
+            status: "success",
+            title: "Logged In Sucessfully",
+          })
+          localStorage.setItem("usertoken",JSON.stringify(res.payload.token))
+          localStorage.setItem("loggeduser", JSON.stringify(res.payload.data))
+          navigate("/")
+          setLoading(false)
+         }
+      }
+      else{
+        toast({
+          position: "top",
+          colorScheme: "red",
+          status: "error",
+          title: "Email id is Not registered",
+        });
+        setLoading(false)
+      }
+         
+      }).catch((err) =>{
+        console.log(err)
+        setLoading(false)
+      })
+   
+ } 
+   if (post.email === "") {
+     setisEmail(true);
+   }
+   if (post.password === "") {
+     setisPassword(true);
+   }
+  
+}
 
 
-  }
 
 
 

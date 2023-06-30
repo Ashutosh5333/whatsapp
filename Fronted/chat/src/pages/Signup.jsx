@@ -1,20 +1,10 @@
 import React, { useContext, useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Input,
-  Text,
-  VStack,
-  useToast,
-} from "@chakra-ui/react";
+import { Box,  Button,  Card,  FormControl,  FormLabel,  FormErrorMessage,  FormHelperText,Input,  Text,  VStack,  useToast,} from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { Topnav } from "../component/Topnav";
 import { AuthContext } from "../context/AuthContext";
+import { Signuppost } from "../Redux/AuthReducer/Action";
+import { useDispatch } from "react-redux";
 
 export const Signup = () => {
   const [isEmail, setisEmail] = useState(false);
@@ -22,6 +12,7 @@ export const Signup = () => {
   const [isName, setisName] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const toast = useToast();
    const {user, updatedregistered} = useContext(AuthContext) 
  
@@ -40,7 +31,40 @@ export const Signup = () => {
 
   
   const  handleSubmit = () => {
-    updatedregistered(post)
+    if (  post.email !== "" && post.name !== "" &&  post.password !== "" ) {
+      setLoading(true)
+      dispatch(Signuppost(post))
+      .then((res) =>{
+        setLoading(false)
+        if(res.type ==="SIGNUPUSERSUCESS" && res.payload.data !== "user is already present" ){
+         toast({
+           position: "top",
+           colorScheme: "green",
+           status: "success",
+           title: "user created Account Sucessfully",
+           duration: 3000,
+         });
+         navigate("/login")
+         setLoading(false)
+       }
+      }).catch((err) =>{
+       console.log(err)
+      })
+
+       
+    } else {
+      if (post.email === "") {
+        setisEmail(true);
+      }
+      if (post.password === "") {
+        setisPassword(true);
+      }
+
+      if (post.name === "") {
+        setisName(true);
+      }
+    }
+
   }
 
 
