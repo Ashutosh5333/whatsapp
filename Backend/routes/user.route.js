@@ -49,6 +49,7 @@ const UserRouter = express.Router();
                        const token = jwt.sign({userId:user[0]._id},"hush")
                       res.send({"msg":"login Sucessfully","token":token ,
                        data:{
+                         userID:userdata[0]._id, 
                          userEmail:userdata[0].email,
                          userName:userdata[0].name
                        }
