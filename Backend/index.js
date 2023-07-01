@@ -7,6 +7,7 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const { UserRouter } = require("./routes/user.route");
 const { ChatRouter } = require("./routes/Chat.route");
+const { MessageRouter } = require("./routes/Message.route");
 
 app.use(express.json());
 app.get("/", (req, res) => {
@@ -23,6 +24,7 @@ app.use(
 
 app.use(UserRouter)
 app.use(ChatRouter)
+app.use(MessageRouter)
 
 const io = new Server(server);
 
